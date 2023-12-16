@@ -4,6 +4,11 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './typeorm/entities/user.entity';
+import { RestoModule } from './resto/resto.module';
+import { RestoEntity } from './typeorm/entities/resto.entity';
+import { MenuController } from './menu/menu.controller';
+import { MenuService } from './menu/menu.service';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -13,10 +18,10 @@ import { UserEntity } from './typeorm/entities/user.entity';
     username: 'root',
     password: '',
     database: 'nanaspos_nestjs',
-    entities: [UserEntity],
+    entities: [UserEntity, RestoEntity],
     synchronize: true,
-  }), UsersModule],
-  controllers: [AppController],
-  providers: [AppService],
+  }), UsersModule, RestoModule, MenuModule],
+  controllers: [AppController, MenuController],
+  providers: [AppService, MenuService],
 })
 export class AppModule {}
